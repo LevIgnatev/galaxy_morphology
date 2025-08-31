@@ -1,5 +1,44 @@
 # galaxy_morphology_ml_captioning
-An attempt to create a multimodal machine learning model for classification of galaxies with added captions.
+A project to create a multimodal machine learning model for classification of galaxies from survey images with generated natural language captions (for example, "a spiral galaxy with a prominent bulge").
 
 
 I've been recently very interested in machine learning and spent quite some time exploring the topic, and I created this project to try to test my abilities both in the technical aspect and the ability to finish a full project.
+
+
+The repo contains data excerpts in /data/, loading code, training code in /src/, notebooks and a small final demo.
+
+## **Motivation**
+
+I selected this topic to research because of my long-standing interest in astronomy coming from last summer fixation on the subject and posterior olympiads. The task is classic [classification of galaxies by type](https://en.wikipedia.org/wiki/Galaxy_morphological_classification) (elliptical, spiral, lenticular, irregular, etc.) by image using an ML model, with generated captions added afterward to highlight information from the image. 
+It is meant to demonstrate both technical skill (preprocessing, training, transfer learning, etc.) and domain understanding.
+
+## **Goal**
+
+The goal is to use different methods and parameters and to compare the performance of different implementations (e.g. late fusion vs CLIP architecture or cross-attention), with posterior evaluation and demo built for result demonstration.
+
+## **Plan**
+
+The high-level plan is to:
+1) Implement a robust CNN model as a base
+2) Create a pipeline from images to captions
+3) Interpret the captions with Grad-CAM or attention
+4) Evaluate the results + build a simple demo
+
+## **Data**
+
+I took the Galaxy zoo database and SDSS images as the primary source of training data for the models (in data/labels a small bit of images with human descriptions can be found).
+
+## **Models to be tested**
+
+I'm still learning about different models, so the list will be updated for sure. For now, the idea is to use a pretrained ResNet for classification and a CNN + LSTM for caption en- and de- coding.
+Also I will use Grad-CAM to visualize attention. Maybe I will try ablation as an experiment.
+
+## **Evaluation**
+
+Evaluation will be done traditionally (accuracy, confusion matrix, F1) for the classifier. For the captioner, however, it is only possible to manually observe the performance.
+
+## **Reproducibility**
+
+lab_notes.md contains all the logs of my choices, actions, etc. to ensure all the changes are documented + secure ownership. I will also share random seeds, train/test splits, etc.
+I will try testing models locally on my home GPU as long as the training is not very demanding computationally.
+Now, an important note about LLMs. I understand that the entirety of this project could be completed in minutes in one prompt to ChatGPT. If I use LLM help in certain steps of the process, it will be documented in lab_notes.md. I can ensure that almost all the work, including evaluation and interpretations of results, will be done by me (hopefully, frequent commits demonstrate it). Otherwise, the project loses all its meaning.
