@@ -1,0 +1,15 @@
+numpy
+pandas
+matplotlib
+scikit-learn
+pillow
+torch
+torchvision
+tensorflow
+transformers
+sentencepiece
+datasets
+scikit-image
+astropy
+streamlit
+grad-cam
