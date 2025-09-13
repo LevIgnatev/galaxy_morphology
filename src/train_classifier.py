@@ -6,7 +6,8 @@ import matplotlib.pyplot as plt
 import tensorflow.keras.layers as layers
 from data_loader import load_data
 
-labels_and_paths_csv_fp = r"C:\Users\79263\galaxy_morphology_ml_captioning\data\labels\labels_manifest_1000.csv" #labels filepath
+labels_and_paths_csv_fp_laptop = r"C:\Users\79263\galaxy_morphology_ml_captioning\data\labels\labels_manifest_1000.csv" #labels filepath (laptop)
+labels_and_paths_csv_fp_PC = r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\data\labels\labels_manifest_1000.csv" #labels filepath (PC)
 
 np.random.seed(5629) # random seed for reproducibility
 tf.random.set_seed(5629)
@@ -14,17 +15,17 @@ tf.random.set_seed(5629)
 baseline_CNN_model = tf.keras.models.Sequential([ # baseline CNN model (input -> resnet50 -> convolution and max pooling layers -> dense layers with relu and softmax
     layers.InputLayer(input_shape=(224,224,3)),
 
-    #tf.keras.applications.ResNet50(include_top=False,),
+    tf.keras.applications.ResNet50(include_top=False,),
 
-    layers.Conv2D(filters=64, kernel_size=3, strides=1, activation='relu'),
-    layers.MaxPool2D(pool_size=3, strides=3),
+    layers.Conv2D(filters=64, kernel_size=3, strides=1, activation='relu', padding='same'),
+    layers.MaxPool2D(pool_size=2, strides=2, padding='same'),
 
-    layers.Conv2D(filters=128, kernel_size=3, strides=1, activation='relu'),
-    layers.MaxPool2D(pool_size=3, strides=3),
+    layers.Conv2D(filters=128, kernel_size=3, strides=1, activation='relu', padding='same'),
+    layers.MaxPool2D(pool_size=2, strides=2, padding='same'),
 
-    layers.Conv2D(filters=256, kernel_size=3, strides=1, activation='relu'),
-    layers.Conv2D(filters=256, kernel_size=3, strides=1, activation='relu'),
-    layers.MaxPool2D(pool_size=3, strides=3),
+    layers.Conv2D(filters=256, kernel_size=3, strides=1, activation='relu', padding='same'),
+    layers.Conv2D(filters=256, kernel_size=3, strides=1, activation='relu', padding='same'),
+    layers.MaxPool2D(pool_size=2, strides=2, padding='same'),
 
     layers.Flatten(),
     layers.Dense(32, activation='relu'),
@@ -39,7 +40,7 @@ baseline_CNN_model.compile( # compilation
     metrics=['accuracy']
 )
 
-train_sample, valid_sample = load_data(labels_and_paths_csv_fp) # data loading (see data_loader.py)
+train_sample, valid_sample = load_data(labels_and_paths_csv_fp_PC, "PC") # data loading (see data_loader.py)
 
 history = baseline_CNN_model.fit( # fitting
     train_sample,
