@@ -12,3 +12,6 @@ The last column corresponds to the final derived label, with a threshold of cert
 ## 2025-09-12
 Over the course of the last week built a baseline classifier, as well as a data pipeline for preprocessing (train_classifier.py and data_loader.py respectively).
 The model used is CNN (convolutional neural network) with a ResNet50 pretrained base (the starting configuration of layers is rather arbitrary, optimal parameters will be introduced later).
+
+## 2025-09-15
+Continued working on the first notebook (data exploration). Added an extensive description and visuals of the properties of the dataset.
