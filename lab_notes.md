@@ -15,3 +15,6 @@ The model used is CNN (convolutional neural network) with a ResNet50 pretrained 
 
 ## 2025-09-15
 Continued working on the first notebook (data exploration). Added an extensive description and visuals of the properties of the dataset.
+
+## 2025-09-22
+Finished the first notebook a couple of days ago. Also split the entire dataset in two parts: the one used for training and the one for the final evaluation.
