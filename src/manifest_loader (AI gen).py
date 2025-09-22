@@ -29,7 +29,6 @@ SAMPLE_CSV = os.path.join(OUT_LABELS_DIR, "labels_manifest_1000.csv")
 CAPTIONS_CSV = os.path.join(OUT_LABELS_DIR, "captions.csv")
 SAMPLED_IMAGES_DIR = os.path.join(OUT_LABELS_DIR, "images")
 THUMBS_DIR = os.path.join(OUT_LABELS_DIR, "thumbs")
-
 SAMPLE_SIZE = 1000
 LABEL_THRESHOLD = 0.60   # threshold to call a confident label
 MAX_VOTE_COLS = 80      # limit how many vote columns to read (saves memory)
