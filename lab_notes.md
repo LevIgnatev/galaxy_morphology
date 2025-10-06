@@ -18,3 +18,6 @@ Continued working on the first notebook (data exploration). Added an extensive d
 
 ## 2025-09-22
 Finished the first notebook a couple of days ago. Also split the entire dataset in two parts: the one used for training and the one for the final evaluation.
+
+## 2025-10-06
+Second notebook on the preprocessing (02_preproc.ipynb) added.
