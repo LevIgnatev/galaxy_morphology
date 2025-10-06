@@ -26,13 +26,13 @@ def load_data(labels_fp, laptop_or_PC): # main function for loading the data fro
     for i in valid_df["derived_label"]:
         valid_labels_list.append(labels_to_indexes[i])
 
-    def PREPROCESS(path, label):  # function to flatten the images and one-hot encode the labels
+    def PREPROCESS(path, label): # function to flatten the images and one-hot encode the labels
         image = tf.io.read_file(path)
         image = tf.image.decode_image(image, channels=3)
         image.set_shape([None, None, 3])
         image = tf.image.resize(image, [224, 224])
-        image = tf.cast(image, tf.float32) / 255.0  # cast the image to a tensor with numbers between 0 and 1
-        labels = tf.one_hot(label, unique_labels)  # one-hot encoding the labels
+        image = tf.cast(image, tf.float32) # cast the image to a tensor with numbers between 0 and 255
+        labels = tf.one_hot(label, unique_labels) # one-hot encoding the labels
         return image, labels
 
     AUTOTUNE = tf.data.AUTOTUNE # AUTOTUNE variable for an optimized performance
@@ -47,7 +47,7 @@ def load_data(labels_fp, laptop_or_PC): # main function for loading the data fro
 
     valid_ds = tf.data.Dataset.from_tensor_slices((valid_paths_list, valid_labels_list)) # main data pipeline (map, then the shuffle - batch - prefetch) for validation data
     valid_ds = (
-        valid_ds.shuffle(buffer_size=len(valid_paths_list), seed=37)
+        valid_ds
         .map(PREPROCESS, num_parallel_calls=AUTOTUNE)
         .batch(32)
         .prefetch(AUTOTUNE)
