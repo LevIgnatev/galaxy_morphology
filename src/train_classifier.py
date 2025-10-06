@@ -6,8 +6,10 @@ import matplotlib.pyplot as plt
 import tensorflow.keras.layers as layers
 from data_loader import load_data
 
-labels_and_paths_csv_fp_laptop = r"C:\Users\79263\galaxy_morphology_ml_captioning\data\labels\labels_manifest_1000.csv" #labels filepath (laptop)
-labels_and_paths_csv_fp_PC = r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\data\labels\labels_manifest_1000.csv" #labels filepath (PC)
+labels_and_paths_csv_fp_PC_sample = r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\data\labels\labels_manifest_1000.csv" #labels filepath (PC)
+labels_and_paths_csv_fp_laptop_sample = r"C:\Users\79263\galaxy_morphology_ml_captioning\data\labels\labels_manifest_1000.csv" #labels filepath (laptop)
+labels_and_paths_csv_fp_PC_full = r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\data\processed\manifest_train_and_val.csv"
+labels_and_paths_csv_fp_laptop_full = r"C:\Users\79263\galaxy_morphology_ml_captioning\data\processed\manifest_train_and_val.csv"
 
 np.random.seed(5629) # random seed for reproducibility
 tf.random.set_seed(5629)
@@ -40,12 +42,12 @@ baseline_CNN_model.compile( # compilation
     metrics=['accuracy']
 )
 
-train_sample, valid_sample = load_data(labels_and_paths_csv_fp_PC, "PC") # data loading (see data_loader.py)
+train_sample, valid_sample = load_data(labels_and_paths_csv_fp_PC_sample, "PC") # data loading (see data_loader.py)
 
 history = baseline_CNN_model.fit( # fitting
     train_sample,
     validation_data=valid_sample,
-    epochs=50
+    epochs=1
 )
 
 hist = history.history
