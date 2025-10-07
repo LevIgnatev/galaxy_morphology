@@ -14,3 +14,6 @@ full_dataset_present = False
 np.random.seed(5629) # random seed for reproducibility
 tf.random.set_seed(5629)
 
+baseline_captioner = tf.keras.models.Sequential([
+
+])
