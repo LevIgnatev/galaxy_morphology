@@ -100,33 +100,33 @@ for i in range (df.shape[0]):
     if df.iloc[i][features_column_names["no_bulge"]] >= 0.6:
         caption += [" with a small or non-existent", " with a faint or not prominent"][i % 2]
         if df.iloc[i][features_column_names["bulge_rounded"]] >= 0.6:
-            caption += [" with a rounded bulge,", " with a round bulge,"][i % 2]
+            caption += [" rounded bulge,", " round bulge,"][i % 2]
         elif df.iloc[i][features_column_names["bulge_boxy"]] >= 0.6:
-            caption += [" with a boxy bulge,", " with a rectangular/boxy bulge,"][i % 2]
+            caption += [" boxy bulge,", " rectangular/boxy bulge,"][i % 2]
         else:
             caption += " bulge,"
     elif df.iloc[i][features_column_names["bulge_just_noticeable"]] >= 0.6:
         caption += [" with a modest", " with a noticeable"][i % 2]
         if df.iloc[i][features_column_names["bulge_rounded"]] >= 0.6:
-            caption += [" with a rounded bulge,", " with a round bulge,"][i % 2]
+            caption += [" rounded bulge,", " round bulge,"][i % 2]
         elif df.iloc[i][features_column_names["bulge_boxy"]] >= 0.6:
-            caption += [" with a boxy bulge,", " with a rectangular/boxy bulge,"][i % 2]
+            caption += [" boxy bulge,", " rectangular/boxy bulge,"][i % 2]
         else:
             caption += " bulge,"
     elif df.iloc[i][features_column_names["bulge_obvious"]] >= 0.6:
         caption += [" with a prominent", " with a conspicuous"][i % 2]
         if df.iloc[i][features_column_names["bulge_rounded"]] >= 0.6:
-            caption += [" with a rounded bulge,", " with a round bulge,"][i % 2]
+            caption += [" rounded bulge,", " round bulge,"][i % 2]
         elif df.iloc[i][features_column_names["bulge_boxy"]] >= 0.6:
-            caption += [" with a boxy bulge,", " with a rectangular/boxy bulge,"][i % 2]
+            caption += [" boxy bulge,", " rectangular/boxy bulge,"][i % 2]
         else:
             caption += " bulge,"
     elif df.iloc[i][features_column_names["bulge_dominant"]] >= 0.6:
         caption += [" with a dominant", " with a very large"][i % 2]
         if df.iloc[i][features_column_names["bulge_rounded"]] >= 0.6:
-            caption += [" with a rounded bulge,", " with a round bulge,"][i % 2]
+            caption += [" rounded bulge,", " round bulge,"][i % 2]
         elif df.iloc[i][features_column_names["bulge_boxy"]] >= 0.6:
-            caption += [" with a boxy bulge,", " with a rectangular/boxy bulge,"][i % 2]
+            caption += [" boxy bulge,", " rectangular/boxy bulge,"][i % 2]
         else:
             caption += " bulge,"
 
