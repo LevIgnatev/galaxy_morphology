@@ -4,9 +4,7 @@ import pandas as pd
 import tensorflow as tf
 import matplotlib.pyplot as plt
 import tensorflow.keras.layers as layers
-from keras.src.applications.convnext import preprocess_input
 from keras.src.callbacks import EarlyStopping
-from prompt_toolkit.key_binding.bindings.named_commands import self_insert
 
 from data_loader import load_data
 
@@ -14,7 +12,7 @@ labels_and_paths_csv_fp_PC_sample = r"C:\Users\user\PycharmProjects\galaxy_morph
 labels_and_paths_csv_fp_laptop_sample = r"C:\Users\79263\galaxy_morphology_ml_captioning\data\labels\labels_manifest_1000.csv" # sample labels filepath (laptop)
 labels_and_paths_csv_fp_PC_full = r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\data\processed\manifest_train_and_val.csv" # full labels filepath (PC)
 labels_and_paths_csv_fp_laptop_full = r"C:\Users\79263\galaxy_morphology_ml_captioning\data\processed\manifest_train_and_val.csv" # full labels filepath (laptop)
-full_dataset_present = False
+full_dataset_present = True
 
 np.random.seed(5629) # random seed for reproducibility
 tf.random.set_seed(5629)
@@ -43,14 +41,16 @@ baseline_CNN_model.compile( # compilation
     metrics=['accuracy'],
 )
 
-train_sample, valid_sample = load_data(labels_and_paths_csv_fp_PC_sample, "PC") # data loading (see data_loader.py)
+train_sample, valid_sample = load_data(labels_and_paths_csv_fp_PC_full, "PC") # data loading (see data_loader.py)
 
 history = baseline_CNN_model.fit( # fitting
     train_sample,
     validation_data=valid_sample,
-    epochs=30,
-    callbacks=[EarlyStopping(patience=10, restore_best_weights=True)],
+    epochs=50,
+    #callbacks=[EarlyStopping(patience=10, restore_best_weights=True)],
 )
+
+baseline_CNN_model.save(r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\checkpoints\ckpt_classifier.keras")
 
 hist = history.history
 

@@ -21,3 +21,9 @@ Finished the first notebook a couple of days ago. Also split the entire dataset 
 
 ## 2025-10-06
 Second notebook on the preprocessing (02_preproc.ipynb) added + 03_baselines notebook started. Improved baseline model to avoid overfitting. Started working on the baseline captioner.
+
+## 2025-10-07
+Baseline classifier improved (fixed even, I would say). 3rd notebook extended greatly. Generated captions using varied, pseudo-random templates and saved them to captions_full.csv. Turned out to be much, much harder than expected.
+Started working on explaining and interpreting the classifier's predictions using heat maps (just a stub for now).
+
+Difficulty: my nvidia rtx 4060 was enough for experiments, but running full models on the entire dataset takes dozens of hours. Might look into using a remote GPU server.

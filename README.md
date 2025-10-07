@@ -14,7 +14,7 @@ It is meant to demonstrate both technical skill (preprocessing, training, transf
 
 ## **Goal**
 
-The goal is to use different methods and parameters and to compare the performance of different implementations (e.g. late fusion vs CLIP architecture or cross-attention), with posterior evaluation and demo built for result demonstration.
+The goal is to classify galaxy morphology and generate short captions from labels. Also show heat maps and offer a tiny demo. Use different methods and parameters to compare the performance of different implementations, with posterior evaluation and demo built for result demonstration.
 
 ## **Plan**
 
