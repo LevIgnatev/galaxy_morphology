@@ -46,11 +46,11 @@ train_sample, valid_sample = load_data(labels_and_paths_csv_fp_PC_full, "PC") # 
 history = baseline_CNN_model.fit( # fitting
     train_sample,
     validation_data=valid_sample,
-    epochs=50,
+    epochs=2,
     #callbacks=[EarlyStopping(patience=10, restore_best_weights=True)],
 )
 
-baseline_CNN_model.save(r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\checkpoints\ckpt_classifier.keras")
+baseline_CNN_model.save(r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\src\ckpt_classifier_full.keras")
 
 hist = history.history
 
