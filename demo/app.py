@@ -41,7 +41,7 @@ with st.spinner("Loading model..."):
 st.success(f"Model loaded successfully!")
 
 images_list = ["None",
-                r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\sample_images\125119.jpg",
+               os.path.join(ROOT, "sample_images", "125119.jpg"),
                 r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\sample_images\42.jpg",
                 r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\sample_images\107682.jpg",
                 r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\sample_images\192211.jpg",
