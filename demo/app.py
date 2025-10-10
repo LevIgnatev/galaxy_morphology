@@ -16,11 +16,10 @@ st.title("Galaxy morphology demo")
 
 ROOT = Path(__file__).resolve().parents[1]
 classifier_path = Path(os.getenv("model_path", ROOT / "checkpoints" / "ckpt_classifier_full.keras"))
-manifest_path = Path(os.getenv("manifest_path", ROOT / "data" / "labels" / "labels_manifest_1000.csv"))
 
 @st.cache_resource
 def load_model_and_classes(model_path):
-    class_names = pd.read_csv(manifest_path)["derived_label"].unique().tolist()
+    class_names = ["spiral", "elliptical", "ambiguous", "edge-on", "merger"]
     model = tf.keras.models.load_model(model_path, compile=False)
     return model, class_names
 
