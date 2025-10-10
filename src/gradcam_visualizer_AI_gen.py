@@ -1,8 +1,4 @@
 def generate_gradcam_overlay_from_array(model_path: str, image_rgb_224_np):
-    """
-    Wrapper that uses the same Grad-CAM pipeline defined above,
-    but takes a (224,224,3) RGB float/uint8 array and returns (overlay_uint8, softmax_probs).
-    """
     import numpy as _np, cv2 as _cv2, tensorflow as _tf
 
     num_classes = _tf.keras.models.load_model(model_path, compile=False).output_shape[-1]
