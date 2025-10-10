@@ -42,23 +42,23 @@ st.success(f"Model loaded successfully!")
 
 images_list = ["None",
                os.path.join(ROOT, "sample_images", "125119.jpg"),
-                r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\sample_images\42.jpg",
-                r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\sample_images\107682.jpg",
-                r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\sample_images\192211.jpg",
-                r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\sample_images\tomato.jpg",
-                r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\sample_images\192973.jpg",
-                r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\sample_images\226130.jpg",
-                r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\sample_images\226162.jpg"
+                os.path.join(ROOT, "sample_images", "42.jpg"),
+                os.path.join(ROOT, "sample_images", "107682.jpg"),
+                os.path.join(ROOT, "sample_images", "192211.jpg"),
+                os.path.join(ROOT, "sample_images", "tomato.jpg"),
+                os.path.join(ROOT, "sample_images", "192973.jpg"),
+                os.path.join(ROOT, "sample_images", "226130.jpg"),
+                os.path.join(ROOT, "sample_images", "226162.jpg"),
 ]
 
-true_labels = {r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\sample_images\125119.jpg": "merger",
-                r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\sample_images\42.jpg": "spiral",
-                r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\sample_images\107682.jpg": "spiral",
-                r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\sample_images\192211.jpg": "elliptical",
-                r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\sample_images\tomato.jpg": ":)",
-                r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\sample_images\192973.jpg": "edge-on",
-                r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\sample_images\226130.jpg": "edge-on",
-                r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\sample_images\226162.jpg": "spiral"
+true_labels = {os.path.join(ROOT, "sample_images", "125119.jpg"): "merger",
+                os.path.join(ROOT, "sample_images", "42.jpg"): "spiral",
+                os.path.join(ROOT, "sample_images", "107682.jpg"): "spiral",
+                os.path.join(ROOT, "sample_images", "192211.jpg"): "elliptical",
+                os.path.join(ROOT, "sample_images", "tomato.jpg"): ":)",
+                os.path.join(ROOT, "sample_images", "192973.jpg"): "edge-on",
+                os.path.join(ROOT, "sample_images", "226130.jpg"): "edge-on",
+                os.path.join(ROOT, "sample_images", "226162.jpg"): "spiral"
 }
 
 images_list_choice = ["None",
@@ -80,7 +80,7 @@ with col2:
 
 image_path = None
 if uploaded is not None:
-    temp_images_dir = r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\data\labels\uploaded_images"
+    temp_images_dir = os.path.join(ROOT, "data", "labels", "uploaded_images")
     os.makedirs(temp_images_dir, exist_ok=True)
     image_path = os.path.join(temp_images_dir, uploaded.name)
     with open(image_path, "wb") as f:
