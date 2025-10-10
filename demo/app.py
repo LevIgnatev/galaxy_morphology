@@ -41,24 +41,24 @@ with st.spinner("Loading model..."):
 st.success(f"Model loaded successfully!")
 
 images_list = ["None",
-                r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\data\raw\images\125119.jpg",
-                r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\data\raw\images\42.jpg",
-                r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\data\raw\images\107682.jpg",
-                r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\data\raw\images\192211.jpg",
-                r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\data\labels\tomato.jpg",
-                r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\data\raw\images\192973.jpg",
-                r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\data\raw\images\226130.jpg",
-                r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\data\raw\images\226162.jpg"
+                r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\sample_images\125119.jpg",
+                r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\sample_images\42.jpg",
+                r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\sample_images\107682.jpg",
+                r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\sample_images\192211.jpg",
+                r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\sample_images\tomato.jpg",
+                r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\sample_images\192973.jpg",
+                r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\sample_images\226130.jpg",
+                r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\sample_images\226162.jpg"
 ]
 
-true_labels = {r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\data\raw\images\125119.jpg": "merger",
-                r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\data\raw\images\42.jpg": "spiral",
-                r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\data\raw\images\107682.jpg": "spiral",
-                r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\data\raw\images\192211.jpg": "elliptical",
-                r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\data\labels\tomato.jpg": ":)",
-                r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\data\raw\images\192973.jpg": "edge-on",
-                r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\data\raw\images\226130.jpg": "edge-on",
-                r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\data\raw\images\226162.jpg": "spiral"
+true_labels = {r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\sample_images\125119.jpg": "merger",
+                r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\sample_images\42.jpg": "spiral",
+                r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\sample_images\107682.jpg": "spiral",
+                r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\sample_images\192211.jpg": "elliptical",
+                r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\sample_images\tomato.jpg": ":)",
+                r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\sample_images\192973.jpg": "edge-on",
+                r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\sample_images\226130.jpg": "edge-on",
+                r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\sample_images\226162.jpg": "spiral"
 }
 
 images_list_choice = ["None",
