@@ -16,15 +16,15 @@ st.title("Galaxy morphology demo")
 
 ROOT = Path(__file__).resolve().parents[1]
 classifier_path = Path(os.getenv("model_path", ROOT / "checkpoints" / "ckpt_classifier_full.keras"))
-manifest_path = Path(os.getenv("manifest_path", ROOT / "data" / "processed" / "manifest_train_and_val.csv"))
+manifest_path = Path(os.getenv("manifest_path", ROOT / "data" / "labels" / "labels_manifest_1000.csv"))
 
 @st.cache_resource
-def load_model_and_classes(model_path: str):
+def load_model_and_classes(model_path):
     class_names = pd.read_csv(manifest_path)["derived_label"].unique().tolist()
     model = tf.keras.models.load_model(model_path, compile=False)
     return model, class_names
 
-def predict_and_gradcam(model_path: str, image_path: str):
+def predict_and_gradcam(model_path, image_path):
     img = Image.open(image_path).convert("RGB").resize((224, 224))
     arr = np.array(img)
 
