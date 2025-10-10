@@ -27,3 +27,6 @@ Baseline classifier improved (fixed even, I would say). 3rd notebook extended gr
 Started working on explaining and interpreting the classifier's predictions using heat maps (just a stub for now).
 
 Difficulty: my nvidia rtx 4060 was enough for experiments, but running full models on the entire dataset takes dozens of hours. Might look into using a remote GPU server.
+
+## 2025-10-10
+app.py - an interactive streamlit demo added. Minor improvements.
