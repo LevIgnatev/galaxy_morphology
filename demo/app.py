@@ -2,14 +2,14 @@ import tensorflow as tf
 import streamlit as st
 from PIL import Image
 import os, sys
-import numpy as np, pandas as pd
+import numpy as np
 from pathlib import Path
 
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
-from src.gradcam_visualizer_AI_gen import generate_gradcam_overlay_from_array
+from classifying.gradcam_visualizer_AI_gen import generate_gradcam_overlay_from_array
 
 st.set_page_config(page_title="Galaxy morphology demo", layout="centered")
 st.title("Galaxy morphology demo")

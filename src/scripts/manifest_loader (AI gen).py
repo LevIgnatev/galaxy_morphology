@@ -20,9 +20,9 @@ from sklearn.model_selection import train_test_split
 # -------- CONFIG --------
 MAPPING_CSV = r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\data\raw\mapping.csv"
 GZ_CSV = r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\data\raw\gz2_hart16.csv.gz"
-IMAGES_DIR = r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\data\raw\images"
-OUT_PROC_DIR = r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\data\processed"
-OUT_LABELS_DIR = r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\data\labels"
+IMAGES_DIR = r"/data/raw/images"
+OUT_PROC_DIR = r"/data/processed"
+OUT_LABELS_DIR = r"/data/labels"
 OUT_MANIFEST = os.path.join(OUT_PROC_DIR, "manifest.csv")
 OUT_MANIFEST_LABELS = os.path.join(OUT_PROC_DIR, "manifest_with_labels.csv")
 SAMPLE_CSV = os.path.join(OUT_LABELS_DIR, "labels_manifest_1000.csv")

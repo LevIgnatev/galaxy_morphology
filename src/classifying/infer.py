@@ -3,9 +3,9 @@ import pandas as pd
 import tensorflow as tf
 
 def predict_image(image_path):
-    model = tf.keras.models.load_model(r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\checkpoints\ckpt_classifier_full.keras", compile=False)
+    model = tf.keras.models.load_model(r"/checkpoints/ckpt_classifier_full.keras", compile=False)
 
-    labels = pd.read_csv(r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\data\processed\manifest_train_and_val.csv")["derived_label"].astype(str).dropna().unique().tolist()
+    labels = pd.read_csv(r"/data/processed/manifest_train_and_val.csv")["derived_label"].astype(str).dropna().unique().tolist()
 
     img = tf.io.read_file(image_path)
     img = tf.image.decode_image(img)
@@ -22,4 +22,4 @@ def predict_image(image_path):
         print(f"{rank}. {name:20s} probability = {probs[i]:.4f}")
 
 if __name__ == "__main__":
-    predict_image(r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\data\raw\images\12510.jpg")
+    predict_image(r"/data/raw/images/12510.jpg")
