@@ -9,7 +9,6 @@ import json
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 DATA_PATH = PROJECT_ROOT / "data" / "labels"
-manifest_fp = ""
 config_fp = DATA_PATH / "captions" / "config.json"
 vocab_fp = DATA_PATH / "captions" / "vocab.json"
 

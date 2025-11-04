@@ -5,21 +5,19 @@ import json
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 DATA_PATH = PROJECT_ROOT / "data" / "labels"
+
 all_captions_path = DATA_PATH / "captions" / "captions_sample.csv"
 caption_train_path = DATA_PATH / "captions" /"train_captions_sample.txt"
 caption_valid_path = DATA_PATH / "captions" /"val_captions_sample.txt"
-images_dir = DATA_PATH / "thumbs"
-labels_fp = DATA_PATH / "labels_manifest_1000.csv"
-laptop_or_PC = "laptop"
-manifest_fp = ""
 
 config_fp = DATA_PATH / "captions" / "config.json"
+
 config = json.load(open(config_fp))
 
 from tokenizer import encode
 
 def dataset():
-    manifest = pd.read_csv(manifest_fp)
+    manifest = pd.read_csv(all_captions_path)
     train_ids = pd.read_csv(
         caption_train_path,
         header=None,
