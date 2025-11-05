@@ -11,6 +11,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[2]
 DATA_PATH = PROJECT_ROOT / "data" / "labels"
 config_fp = DATA_PATH / "captions" / "config.json"
 vocab_fp = DATA_PATH / "captions" / "vocab.json"
+resnet_weights_fp = PROJECT_ROOT / "checkpoints" / "resnet50_weights_tf_dim_ordering_tf_kernels_notop.h5"
 
 from build_dataset import dataset
 
@@ -30,7 +31,7 @@ x = layers.RandomTranslation(0.1, 0.1)(x)
 x = tf.keras.applications.resnet50.preprocess_input(x)
 
 resnet = tf.keras.applications.ResNet50(
-    include_top=False, weights="imagenet", pooling="avg"
+    include_top=False, weights=resnet_weights_fp, pooling="avg"
 )
 resnet.trainable = False
 x = resnet(x, training=False)
@@ -63,6 +64,6 @@ train_ds, valid_ds = dataset()
 history = captioner_model.fit(
     train_ds,
     validation_data=valid_ds,
-    epochs=2,
+    epochs=1,
     #callbacks=[EarlyStopping(patience=10, restore_best_weights=True)],
 )

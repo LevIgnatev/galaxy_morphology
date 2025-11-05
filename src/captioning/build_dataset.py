@@ -2,6 +2,7 @@ from pathlib import Path
 import pandas as pd
 import tensorflow as tf
 import json
+import numpy as np
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 DATA_PATH = PROJECT_ROOT / "data" / "labels"
@@ -17,7 +18,7 @@ config = json.load(open(config_fp))
 from tokenizer import encode
 
 def dataset():
-    manifest = pd.read_csv(all_captions_path)
+    manifest = pd.read_csv(all_captions_path, dtype={"objid": str})
     train_ids = pd.read_csv(
         caption_train_path,
         header=None,
@@ -42,7 +43,35 @@ def dataset():
     valid_paths_list = df_valid["filepath"].tolist()
     valid_captions_list = df_valid["caption"].astype(str).tolist()
 
-    def PREPROCESS(path, caption):
+    train_captions_in = []
+    train_captions_out = []
+    train_captions_masks = []
+
+    for cap in train_captions_list:
+        cap_in, cap_out, msk = encode(cap)
+        train_captions_in.append(cap_in)
+        train_captions_out.append(cap_out)
+        train_captions_masks.append(msk)
+
+    train_captions_in = np.array(train_captions_in, dtype="int32")
+    train_captions_out = np.array(train_captions_out, dtype="int32")
+    train_captions_masks = np.array(train_captions_masks, dtype="float32")
+
+    valid_captions_in = []
+    valid_captions_out = []
+    valid_captions_masks = []
+
+    for cap in valid_captions_list:
+        cap_in, cap_out, msk = encode(cap)
+        valid_captions_in.append(cap_in)
+        valid_captions_out.append(cap_out)
+        valid_captions_masks.append(msk)
+
+    valid_captions_in = np.array(valid_captions_in, dtype="int32")
+    valid_captions_out = np.array(valid_captions_out, dtype="int32")
+    valid_captions_masks = np.array(valid_captions_masks, dtype="float32")
+
+    def PREPROCESS(path, cap_in, cap_out, mask):
         image = tf.io.read_file(path)
         image = tf.image.decode_image(image, channels=3)
         image.set_shape([None, None, 3])
@@ -50,10 +79,6 @@ def dataset():
         image = tf.cast(image, tf.float32)
         image.set_shape((224, 224, 3))
 
-        cap_in, cap_out, mask = encode(caption)
-        cap_in = tf.cast(cap_in, tf.int32)
-        cap_out = tf.cast(cap_out, tf.int32)
-        mask = tf.cast(mask, tf.float32)
         tf.ensure_shape(cap_in, (config['max_len'],))
         tf.ensure_shape(cap_out, (config['max_len'],))
         tf.ensure_shape(mask, (config['max_len'],))
@@ -63,7 +88,8 @@ def dataset():
     AUTOTUNE = tf.data.AUTOTUNE
 
     train_ds = tf.data.Dataset.from_tensor_slices((train_paths_list,
-                                                   train_captions_list))
+                                                   train_captions_in, train_captions_out,
+                                                   train_captions_masks))
     train_ds = (
         train_ds.shuffle(buffer_size=len(train_paths_list), seed=37)
         .map(PREPROCESS, num_parallel_calls=AUTOTUNE)
@@ -73,7 +99,8 @@ def dataset():
     )
 
     valid_ds = tf.data.Dataset.from_tensor_slices((valid_paths_list,
-                                                   valid_captions_list))
+                                                   valid_captions_in, valid_captions_out,
+                                                   valid_captions_masks))
     valid_ds = (
         valid_ds
         .map(PREPROCESS, num_parallel_calls=AUTOTUNE)
