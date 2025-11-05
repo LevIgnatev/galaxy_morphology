@@ -1,6 +1,5 @@
 from pathlib import Path
 import numpy as np
-import pandas as pd
 import tensorflow as tf
 import matplotlib.pyplot as plt
 import tensorflow.keras.layers as layers
@@ -64,6 +63,26 @@ train_ds, valid_ds = dataset()
 history = captioner_model.fit(
     train_ds,
     validation_data=valid_ds,
-    epochs=1,
+    epochs=10,
     #callbacks=[EarlyStopping(patience=10, restore_best_weights=True)],
 )
+hist = history.history
+
+captioner_model.save(PROJECT_ROOT / "checkpoints" / "captioner_model.keras")
+
+#Plotting time!
+plt.plot(hist['loss'], label='Train Loss')
+plt.plot(hist['val_loss'], label='Validation Loss')
+plt.xlabel('Epoch')
+plt.ylabel('Loss')
+plt.title('Training and Validation Loss')
+plt.legend()
+plt.show()
+
+plt.plot(hist['accuracy'], label='Train Accuracy')
+plt.plot(hist['val_accuracy'], label='Validation Accuracy')
+plt.xlabel('Epoch')
+plt.ylabel('Accuracy')
+plt.title('Training and Validation Accuracy')
+plt.legend()
+plt.show()
