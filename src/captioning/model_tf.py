@@ -63,7 +63,7 @@ train_ds, valid_ds = dataset()
 history = captioner_model.fit(
     train_ds,
     validation_data=valid_ds,
-    epochs=10,
+    epochs=50,
     #callbacks=[EarlyStopping(patience=10, restore_best_weights=True)],
 )
 hist = history.history

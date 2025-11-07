@@ -10,6 +10,7 @@ if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
 from src.classifying.gradcam_visualizer_AI_gen import generate_gradcam_overlay_from_array
+from src.captioning.caption_inference import generate_caption
 
 st.set_page_config(page_title="Galaxy morphology demo", layout="centered")
 st.title("Galaxy morphology demo")
@@ -105,5 +106,10 @@ if image_path:
         st.write("---")
         st.write("**Grad-CAM overlay:**")
         st.image(heatmap, caption="Grad-CAM heat map (redder - more attention)", use_container_width=True)
+
+    if st.button("Generate a caption"):
+        with st.spinner("Generating a caption..."):
+            caption = generate_caption(image_path)
+        st.write(f"### Generated caption: {caption}.")
 else:
     st.info("Select a sample or upload an image to begin.")

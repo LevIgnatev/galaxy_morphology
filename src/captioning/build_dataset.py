@@ -7,9 +7,9 @@ import numpy as np
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 DATA_PATH = PROJECT_ROOT / "data" / "labels"
 
-all_captions_path = DATA_PATH / "captions" / "captions_sample.csv"
-caption_train_path = DATA_PATH / "captions" /"train_captions_sample.txt"
-caption_valid_path = DATA_PATH / "captions" /"val_captions_sample.txt"
+all_captions_path = PROJECT_ROOT / "data" / "processed" / "captions_full" / "captions_full.csv"
+caption_train_path = PROJECT_ROOT / "data" / "processed" / "captions_full" / "train_captions.txt"
+caption_valid_path = PROJECT_ROOT / "data" / "processed" / "captions_full" / "val_captions.txt"
 
 config_fp = DATA_PATH / "captions" / "config.json"
 
