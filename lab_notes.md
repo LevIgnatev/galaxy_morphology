@@ -30,3 +30,10 @@ Difficulty: my nvidia rtx 4060 was enough for experiments, but running full mode
 
 ## 2025-10-10
 app.py - an interactive streamlit demo added. Minor improvements.
+
+## 2025-11-07
+Haven't written here in a long time, but the last few weeks were spent on the captioner module.
+Got it to a more or less working condition. Added it to the demo.
+Cleaned the repo, biggest change: removal of hardcoded Windows paths in favour of 'Path's from pathlib
+(mainly for reproducibility).
+Minor improvements to the notebooks.

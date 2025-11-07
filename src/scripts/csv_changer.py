@@ -1,13 +1,18 @@
 import pandas as pd
+from pathlib import Path
 
-fn = ""
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+DATA_PATH = PROJECT_ROOT / "data" / "labels"
+
+fn = DATA_PATH / "labels_manifest_1000.csv"
 
 
-out = r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\data\labels\captions"
-#fn = r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\data\processed\captions_full\captions_full.csv"
-#df = pd.read_csv(fn)
-#df["filepath"] = [i.replace("C:\\Users\\user\\PycharmProjects\\galaxy_morphology_ml_captioning\\", "") for i in df["filepath_PC"]]
+out = DATA_PATH / "labels_manifest_1000_new.csv"
+df = pd.read_csv(fn)
+
+#df["filepath"] = [i.replace("[redacted]", "") for i in df["filepath_PC"]]
 #df.drop("filepath_PC", axis=1, inplace=True)
-#out = r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\data\processed\captions_full\captions_new2.csv"
-#df.to_csv(out, index=False)
-#print("Wrote", out)
+#df.drop("filepath_laptop", axis=1, inplace=True)
+
+df.to_csv(out, index=False)
+print("Donezo!", out)
