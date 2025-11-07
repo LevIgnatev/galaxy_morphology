@@ -18,8 +18,8 @@ from PIL import Image
 from sklearn.model_selection import train_test_split
 
 # -------- CONFIG --------
-MAPPING_CSV = r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\data\raw\mapping.csv"
-GZ_CSV = r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\data\raw\gz2_hart16.csv.gz"
+MAPPING_CSV = r"[redacted]"
+GZ_CSV = r"[redacted]"
 IMAGES_DIR = r"/data/raw/images"
 OUT_PROC_DIR = r"/data/processed"
 OUT_LABELS_DIR = r"/data/labels"

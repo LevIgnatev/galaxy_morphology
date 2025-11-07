@@ -2,10 +2,14 @@
 import pandas as pd
 import tensorflow as tf
 from sklearn.model_selection import train_test_split
+from pathlib import Path
 
-def load_data(labels_fp, laptop_or_PC): # main function for loading the data from filepaths
+def load_data(labels_fp): # main function for loading the data from filepaths
+
+    PROJECT_ROOT = Path(__file__).resolve().parents[2]
+
     df = pd.read_csv(labels_fp) # read the labels csv file
-    labels_and_fp_cols = df[["derived_label", f"filepath_{laptop_or_PC}"]] # select needed labels
+    labels_and_fp_cols = df[["derived_label", "filepath"]] # select needed labels
 
     train_df, valid_df = train_test_split(labels_and_fp_cols, # split the data for training (80%) and validation (20%)
                                           test_size=0.2,
@@ -17,8 +21,8 @@ def load_data(labels_fp, laptop_or_PC): # main function for loading the data fro
     for i in range (unique_labels):
         labels_to_indexes[labels_and_fp_cols["derived_label"].unique()[i]] = i
 
-    train_paths_list = train_df[f"filepath_{laptop_or_PC}"].tolist() # convert dataframes to lists
-    valid_paths_list = valid_df[f"filepath_{laptop_or_PC}"].tolist()
+    train_paths_list = train_df["filepath"].apply(lambda x: str(PROJECT_ROOT / x)).tolist() # convert dataframes to lists
+    valid_paths_list = valid_df["filepath"].apply(lambda x: str(PROJECT_ROOT / x)).tolist()
     train_labels_list = []
     valid_labels_list = []
     for i in train_df["derived_label"]:

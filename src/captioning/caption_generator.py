@@ -1,6 +1,8 @@
 import pandas as pd
+from pathlib import Path
 
-manifest_fp = r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\data\processed\manifest_train_and_val.csv"
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+manifest_fp = PROJECT_ROOT / "data" / "processed" / "manifest_train_and_val.csv"
 
 df = pd.read_csv(manifest_fp)
 
@@ -136,4 +138,4 @@ for i in range (df.shape[0]):
 
 out = captions
 
-out.to_csv(r"C:\Users\user\PycharmProjects\galaxy_morphology_ml_captioning\data\processed\captions_full.csv", index=False, encoding="utf-8")
+out.to_csv(PROJECT_ROOT / "data" / "processed" / "captions_full.csv", index=False, encoding="utf-8")

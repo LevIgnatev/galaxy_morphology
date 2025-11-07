@@ -1,11 +1,14 @@
 import numpy as np
 import pandas as pd
 import tensorflow as tf
+from pathlib import Path
 
 def predict_image(image_path):
-    model = tf.keras.models.load_model(r"/checkpoints/ckpt_classifier_full.keras", compile=False)
+    PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
-    labels = pd.read_csv(r"/data/processed/manifest_train_and_val.csv")["derived_label"].astype(str).dropna().unique().tolist()
+    model = tf.keras.models.load_model(PROJECT_ROOT / "checkpoints" / "ckpt_classifier_full.keras", compile=False)
+
+    labels = pd.read_csv(PROJECT_ROOT / "data" / "processed" / "manifest_train_and_val.csv")["derived_label"].astype(str).dropna().unique().tolist()
 
     img = tf.io.read_file(image_path)
     img = tf.image.decode_image(img)
