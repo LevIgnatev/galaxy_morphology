@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 import tensorflow.keras.layers as layers
 from keras.src.callbacks import EarlyStopping
 from pathlib import Path
+import os
 
 from data_loader import load_data
 
@@ -48,11 +49,14 @@ train_sample, valid_sample = load_data(labels_and_paths_csv_fp_full) # data load
 history = baseline_CNN_model.fit( # fitting
     train_sample,
     validation_data=valid_sample,
-    epochs=2,
+    epochs=50,
     #callbacks=[EarlyStopping(patience=10, restore_best_weights=True)],
 )
 
-baseline_CNN_model.save(PROJECT_ROOT / "checkpoints" / "ckpt_classifier_full.keras")
+SAVE_DIR = Path(os.getenv("OUT_DIR", Path.cwd() / "outputs"))
+SAVE_DIR.mkdir(parents=True, exist_ok=True)
+
+baseline_CNN_model.save(SAVE_DIR / "ckpt_classifier_full.keras")
 
 hist = history.history
 
