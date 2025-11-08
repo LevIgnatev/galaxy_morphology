@@ -4,7 +4,7 @@ import tensorflow as tf
 import matplotlib.pyplot as plt
 import tensorflow.keras.layers as layers
 import json
-
+import os
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 DATA_PATH = PROJECT_ROOT / "data" / "labels"
@@ -68,7 +68,10 @@ history = captioner_model.fit(
 )
 hist = history.history
 
-captioner_model.save(PROJECT_ROOT / "checkpoints" / "captioner_model.keras")
+SAVE_DIR = Path(os.getenv("OUT_DIR", Path.cwd() / "outputs"))
+SAVE_DIR.mkdir(parents=True, exist_ok=True)
+
+captioner_model.save(SAVE_DIR / "captioner_model.keras")
 
 #Plotting time!
 plt.plot(hist['loss'], label='Train Loss')
