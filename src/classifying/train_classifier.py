@@ -56,7 +56,7 @@ history = baseline_CNN_model.fit( # fitting
 SAVE_DIR = Path(os.getenv("OUT_DIR", Path.cwd() / "outputs"))
 SAVE_DIR.mkdir(parents=True, exist_ok=True)
 
-baseline_CNN_model.save_weights(SAVE_DIR / "ckpt_classifier_full_small.keras")
+baseline_CNN_model.save_weights(SAVE_DIR / "ckpt_classifier_full_small.h5")
 
 hist = history.history
 
