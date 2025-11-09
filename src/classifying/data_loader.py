@@ -8,7 +8,15 @@ def load_data(labels_fp): # main function for loading the data from filepaths
 
     PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
+    def _normalize_paths(df):
+        df["filepath"] = df["filepath"].astype(str).replace("\\", "/", regex=False)
+        df["filepath"] = df["filepath"].apply(
+            lambda p: str((PROJECT_ROOT / p).resolve()) if not p.startswith("/") else p
+        )
+        return df
+    
     df = pd.read_csv(labels_fp) # read the labels csv file
+    df = _normalize_paths(df)
     labels_and_fp_cols = df[["derived_label", "filepath"]] # select needed labels
 
     train_df, valid_df = train_test_split(labels_and_fp_cols, # split the data for training (80%) and validation (20%)
