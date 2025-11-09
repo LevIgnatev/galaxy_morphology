@@ -29,8 +29,8 @@ def load_data(labels_fp): # main function for loading the data from filepaths
     for i in range (unique_labels):
         labels_to_indexes[labels_and_fp_cols["derived_label"].unique()[i]] = i
 
-    train_paths_list = train_df["filepath"].apply(lambda x: str(PROJECT_ROOT / x)).tolist() # convert dataframes to lists
-    valid_paths_list = valid_df["filepath"].apply(lambda x: str(PROJECT_ROOT / x)).tolist()
+    train_paths_list = train_df["filepath"].apply(lambda x: str(PROJECT_ROOT \ x)).tolist() # convert dataframes to lists
+    valid_paths_list = valid_df["filepath"].apply(lambda x: str(PROJECT_ROOT \ x)).tolist()
     train_labels_list = []
     valid_labels_list = []
     for i in train_df["derived_label"]:
