@@ -8,15 +8,14 @@ def load_data(labels_fp): # main function for loading the data from filepaths
 
     PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
-    def _normalize_paths(df):
-        df["filepath"] = df["filepath"].astype(str).replace("\\", "/", regex=False)
-        df["filepath"] = df["filepath"].apply(
-            lambda p: str((PROJECT_ROOT / p).resolve()) if not p.startswith("/") else p
-        )
-        return df
+    def _to_posix_abs(p: str) -> str:
+        p = str(p).replace("\\", "/")
+        if not p.startswith("/"):
+            p = (PROJECT_ROOT / p).as_posix()
+        return p
     
     df = pd.read_csv(labels_fp) # read the labels csv file
-    df = _normalize_paths(df)
+    df["filepath"] = df["filepath"].map(_to_posix_abs)
     labels_and_fp_cols = df[["derived_label", "filepath"]] # select needed labels
 
     train_df, valid_df = train_test_split(labels_and_fp_cols, # split the data for training (80%) and validation (20%)
@@ -29,8 +28,8 @@ def load_data(labels_fp): # main function for loading the data from filepaths
     for i in range (unique_labels):
         labels_to_indexes[labels_and_fp_cols["derived_label"].unique()[i]] = i
 
-    train_paths_list = train_df["filepath"].apply(lambda x: str(PROJECT_ROOT \ x)).tolist() # convert dataframes to lists
-    valid_paths_list = valid_df["filepath"].apply(lambda x: str(PROJECT_ROOT \ x)).tolist()
+    train_paths_list = train_df["filepath"].apply(lambda x: str(PROJECT_ROOT / x)).tolist() # convert dataframes to lists
+    valid_paths_list = valid_df["filepath"].apply(lambda x: str(PROJECT_ROOT / x)).tolist()
     train_labels_list = []
     valid_labels_list = []
     for i in train_df["derived_label"]:
@@ -39,6 +38,7 @@ def load_data(labels_fp): # main function for loading the data from filepaths
         valid_labels_list.append(labels_to_indexes[i])
 
     def PREPROCESS(path, label): # function to flatten the images and one-hot encode the labels
+        path = tf.strings.regex_replace(path, r"\\", "/")
         image = tf.io.read_file(path)
         image = tf.image.decode_image(image, channels=3)
         image.set_shape([None, None, 3])
