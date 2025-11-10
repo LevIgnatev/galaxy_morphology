@@ -63,7 +63,7 @@ train_ds, valid_ds = dataset()
 history = captioner_model.fit(
     train_ds,
     validation_data=valid_ds,
-    epochs=1,
+    epochs=50,
     #callbacks=[EarlyStopping(patience=10, restore_best_weights=True)],
 )
 hist = history.history
@@ -71,7 +71,7 @@ hist = history.history
 SAVE_DIR = Path(os.getenv("OUT_DIR", Path.cwd() / "outputs"))
 SAVE_DIR.mkdir(parents=True, exist_ok=True)
 
-captioner_model.save_weights(SAVE_DIR / "captioner_model1.h5")
+captioner_model.save_weights(SAVE_DIR / "captioner_model.h5")
 
 #Plotting time!
 plt.plot(hist['loss'], label='Train Loss')
