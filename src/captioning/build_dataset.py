@@ -44,7 +44,10 @@ def dataset():
     )
     df_train = manifest.merge(train_ids, on=["objid"], how="inner")
     df_valid = manifest.merge(valid_ids, on=["objid"], how="inner")
-    fps = df_train["filepath"]
+    
+    df_train["filepath"] = df_train["filepath"].map(_to_posix_abs)
+    df_valid["filepath"] = df_valid["filepath"].map(_to_posix_abs)
+    
     train_paths_list = df_train["filepath"].astype(str).apply(lambda x: str(PROJECT_ROOT / x)).tolist()
     train_captions_list = df_train["caption"].astype(str).tolist()
     valid_paths_list = df_valid["filepath"].astype(str).apply(lambda x: str(PROJECT_ROOT / x)).tolist()
