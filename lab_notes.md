@@ -37,3 +37,6 @@ Got it to a more or less working condition. Added it to the demo.
 Cleaned the repo, biggest change: removal of hardcoded Windows paths in favour of 'Path's from pathlib
 (mainly for reproducibility).
 Minor improvements to the notebooks.
+
+## 2025-11-12
+Trained the classifier and the captioner on the full datasets using cloud GPUs from runpod. Probably the hardest task to date. At least I learned some CLI commands. Saved the weights to checkpoints. Fixed the app and the scripts.

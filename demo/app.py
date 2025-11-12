@@ -16,13 +16,12 @@ st.set_page_config(page_title="Galaxy morphology demo", layout="centered")
 st.title("Galaxy morphology demo")
 
 ROOT = Path(__file__).resolve().parents[1]
-classifier_path = Path(os.getenv("model_path", ROOT / "checkpoints" / "ckpt_classifier_full.keras"))
+classifier_path = Path(os.getenv("model_path", ROOT / "checkpoints" / "ckpt_classifier_full.h5"))
 
 @st.cache_resource
-def load_model_and_classes(model_path):
+def load_classes(model_path):
     class_names = ["spiral", "elliptical", "ambiguous", "edge-on", "merger"]
-    model = tf.keras.models.load_model(model_path, compile=False)
-    return model, class_names
+    return class_names
 
 def predict_and_gradcam(model_path, image_path):
     img = Image.open(image_path).convert("RGB").resize((224, 224))
@@ -36,7 +35,7 @@ def predict_and_gradcam(model_path, image_path):
     return heatmap, probs_list
 
 with st.spinner("Loading model..."):
-    classifier_model, class_names = load_model_and_classes(classifier_path)
+    class_names = load_classes(classifier_path)
 
 st.success(f"Model loaded successfully!")
 

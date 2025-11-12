@@ -1,34 +1,41 @@
-def generate_gradcam_overlay_from_array(model_path: str, image_rgb_224_np):
+def generate_gradcam_overlay_from_array(
+    weights_fp: str,
+    image_rgb_224_np,
+    num_classes: int = 5,
+):
     import numpy as _np, cv2 as _cv2, tensorflow as _tf
 
-    num_classes = _tf.keras.models.load_model(model_path, compile=False).output_shape[-1]
+    # --- rebuild EXACT classifier (same as infer.py but with explicit GAP) ---
+    inputs = _tf.keras.Input((224, 224, 3))
+    x = _tf.keras.layers.RandomFlip("horizontal_and_vertical")(inputs)
+    x = _tf.keras.layers.RandomRotation(0.2)(x)
+    x = _tf.keras.layers.RandomTranslation(0.1, 0.1)(x)
+    x = _tf.keras.applications.resnet50.preprocess_input(x)
 
-    inp = _tf.keras.Input(shape=(224, 224, 3), name="input")
-    x = _tf.keras.applications.resnet50.preprocess_input(inp)
-    resnet_no_pool = _tf.keras.applications.ResNet50(include_top=False, weights="imagenet", pooling=None)
-    resnet_no_pool.trainable = False
-    conv_feat = resnet_no_pool(x)
+    # IMPORTANT: pooling=None so we can grab conv maps from the SAME call
+    base = _tf.keras.applications.ResNet50(include_top=False, weights="imagenet", pooling=None)
+    base.trainable = False
+    conv_feat = base(x, training=False)                           # (None, 7, 7, 2048)
     gap = _tf.keras.layers.GlobalAveragePooling2D(name="gap")(conv_feat)
-    dense1 = _tf.keras.layers.Dense(128, activation="relu", name="dense_clone")
-    drop1  = _tf.keras.layers.Dropout(0.2, name="dropout_clone")
-    head   = _tf.keras.layers.Dense(num_classes, activation="softmax", name="head_clone")(drop1(dense1(gap)))
-    cam_model = _tf.keras.Model(inp, [conv_feat, head], name="gradcam_ready")
 
-    orig = _tf.keras.models.load_model(model_path, compile=False)
-    orig_denses = [l for l in orig.layers if isinstance(l, _tf.keras.layers.Dense)]
-    dense1.set_weights(orig_denses[0].get_weights())
-    cam_model.get_layer("head_clone").set_weights(orig_denses[1].get_weights())
+    dense1 = _tf.keras.layers.Dense(128, activation="relu", name="dense_128")(gap)
+    drop1  = _tf.keras.layers.Dropout(0.2, name="dropout_02")(dense1)
+    head   = _tf.keras.layers.Dense(num_classes, activation="softmax", name="head")(drop1)
 
-    x_in = image_rgb_224_np.astype("float32")[None, ...]
+    cam_model = _tf.keras.Model(inputs, [conv_feat, head], name="gradcam_model")
+    cam_model.load_weights(str(weights_fp))
+
+    x_in = _tf.convert_to_tensor(image_rgb_224_np.astype("float32")[None, ...])
 
     with _tf.GradientTape() as tape:
         conv_out, preds = cam_model(x_in, training=False)
         class_idx = _tf.argmax(preds[0])
         loss = preds[:, class_idx]
 
-    grads   = tape.gradient(loss, conv_out)
-    weights = _tf.reduce_mean(grads, axis=(1, 2), keepdims=True)
+    grads   = tape.gradient(loss, conv_out)                        # (1,H,W,C)
+    weights = _tf.reduce_mean(grads, axis=(1, 2), keepdims=True)   # (1,1,1,C)
     cam     = _tf.nn.relu(_tf.reduce_sum(weights * conv_out, axis=-1))[0].numpy()
+
     cam -= cam.min()
     cam /= (cam.max() + 1e-8)
     cam = _cv2.resize(cam, (224, 224), interpolation=_cv2.INTER_LINEAR)

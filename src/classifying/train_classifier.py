@@ -21,7 +21,7 @@ np.random.seed(5629) # random seed for reproducibility
 tf.random.set_seed(5629)
 
 inputs = tf.keras.Input((224,224,3))
-x = layers.RandomFlip(["horizontal", "vertical"])(inputs)
+x = layers.RandomFlip("horizontal_and_vertical")(inputs)
 x = layers.RandomRotation(0.2)(x)
 x = layers.RandomTranslation(0.1, 0.1)(x)
 x = tf.keras.applications.resnet50.preprocess_input(x)

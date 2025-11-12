@@ -2,11 +2,29 @@ import numpy as np
 import pandas as pd
 import tensorflow as tf
 from pathlib import Path
+import tensorflow.keras.layers as layers
+
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
 def predict_image(image_path):
-    PROJECT_ROOT = Path(__file__).resolve().parents[2]
+    classifier_weights_fp = PROJECT_ROOT / "checkpoints" / "ckpt_classifier_full.h5"
 
-    model = tf.keras.models.load_model(PROJECT_ROOT / "checkpoints" / "ckpt_classifier_full.keras", compile=False)
+    inputs = tf.keras.Input((224, 224, 3))
+    x = layers.RandomFlip("horizontal_and_vertical")(inputs)
+    x = layers.RandomRotation(0.2)(x)
+    x = layers.RandomTranslation(0.1, 0.1)(x)
+    x = tf.keras.applications.resnet50.preprocess_input(x)
+
+    resnet = tf.keras.applications.ResNet50(
+        include_top=False, weights="imagenet", pooling="avg"
+    )
+    resnet.trainable = False
+    x = resnet(x, training=False)
+    x = layers.Dense(128, activation="relu")(x)
+    x = layers.Dropout(0.2)(x)
+    outputs = layers.Dense(5, activation="softmax")(x)
+    model = tf.keras.Model(inputs, outputs)
+    model.load_weights(classifier_weights_fp)
 
     labels = pd.read_csv(PROJECT_ROOT / "data" / "processed" / "manifest_train_and_val.csv")["derived_label"].astype(str).dropna().unique().tolist()
 
@@ -25,4 +43,4 @@ def predict_image(image_path):
         print(f"{rank}. {name:20s} probability = {probs[i]:.4f}")
 
 if __name__ == "__main__":
-    predict_image(r"/data/raw/images/12510.jpg")
+    predict_image(str(PROJECT_ROOT / "sample_images" / "107682.jpg"))
