@@ -24,7 +24,7 @@ vocab_size = len(vocab)
 # Encoder
 inputs = tf.keras.Input((224,224,3))
 
-x = layers.RandomFlip(["horizontal", "vertical"])(inputs)
+x = layers.RandomFlip("horizontal_and_vertical")(inputs)
 x = layers.RandomRotation(0.2)(x)
 x = layers.RandomTranslation(0.1, 0.1)(x)
 x = tf.keras.applications.resnet50.preprocess_input(x)
@@ -71,7 +71,7 @@ hist = history.history
 SAVE_DIR = Path(os.getenv("OUT_DIR", Path.cwd() / "outputs"))
 SAVE_DIR.mkdir(parents=True, exist_ok=True)
 
-captioner_model.save(SAVE_DIR / "captioner_model.keras")
+captioner_model.save_weights(SAVE_DIR / "captioner_model.h5")
 
 #Plotting time!
 plt.plot(hist['loss'], label='Train Loss')

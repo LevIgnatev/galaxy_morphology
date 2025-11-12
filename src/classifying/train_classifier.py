@@ -49,14 +49,14 @@ train_sample, valid_sample = load_data(labels_and_paths_csv_fp_full) # data load
 history = baseline_CNN_model.fit( # fitting
     train_sample,
     validation_data=valid_sample,
-    epochs=50,
+    epochs=1,
     #callbacks=[EarlyStopping(patience=10, restore_best_weights=True)],
 )
 
 SAVE_DIR = Path(os.getenv("OUT_DIR", Path.cwd() / "outputs"))
 SAVE_DIR.mkdir(parents=True, exist_ok=True)
 
-baseline_CNN_model.save(SAVE_DIR / "ckpt_classifier_full.keras")
+baseline_CNN_model.save_weights(SAVE_DIR / "ckpt_classifier_fulle.h5")
 
 hist = history.history
 
