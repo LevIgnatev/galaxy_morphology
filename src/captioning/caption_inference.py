@@ -74,4 +74,4 @@ def generate_caption(image_fp):
 
     return caption.replace("<bos>", "").replace("<eos>", "").replace("<pad>", "").replace("a a ", "a ").strip()
 
-print(generate_caption(PROJECT_ROOT / "sample_images" / "42.jpg"))
+#print(generate_caption(PROJECT_ROOT / "sample_images" / "42.jpg"))

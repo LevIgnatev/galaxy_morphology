@@ -19,12 +19,6 @@ from tokenizer import encode
 
 def dataset():
     
-    def _to_posix_abs(p: str) -> str:
-        p = str(p).replace("\\", "/")
-        if not p.startswith("/"):
-            p = (PROJECT_ROOT / p).as_posix()
-        return p
-    
     manifest = pd.read_csv(all_captions_path, dtype={"objid": str})
     train_ids = pd.read_csv(
         caption_train_path,
@@ -44,9 +38,6 @@ def dataset():
     )
     df_train = manifest.merge(train_ids, on=["objid"], how="inner")
     df_valid = manifest.merge(valid_ids, on=["objid"], how="inner")
-    
-    df_train["filepath"] = df_train["filepath"].map(_to_posix_abs)
-    df_valid["filepath"] = df_valid["filepath"].map(_to_posix_abs)
     
     train_paths_list = df_train["filepath"].astype(str).apply(lambda x: str(PROJECT_ROOT / x)).tolist()
     train_captions_list = df_train["caption"].astype(str).tolist()
