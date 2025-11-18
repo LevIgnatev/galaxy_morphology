@@ -10,10 +10,7 @@ def predict_image(image_path):
     classifier_weights_fp = PROJECT_ROOT / "checkpoints" / "ckpt_classifier_full.h5"
 
     inputs = tf.keras.Input((224, 224, 3))
-    x = layers.RandomFlip("horizontal_and_vertical")(inputs)
-    x = layers.RandomRotation(0.2)(x)
-    x = layers.RandomTranslation(0.1, 0.1)(x)
-    x = tf.keras.applications.resnet50.preprocess_input(x)
+    x = tf.keras.applications.resnet50.preprocess_input(inputs)
 
     resnet = tf.keras.applications.ResNet50(
         include_top=False, weights="imagenet", pooling="avg"
@@ -46,10 +43,7 @@ def predict_class(image_path):
     classifier_weights_fp = PROJECT_ROOT / "checkpoints" / "ckpt_classifier_full.h5"
 
     inputs = tf.keras.Input((224, 224, 3))
-    x = layers.RandomFlip("horizontal_and_vertical")(inputs)
-    x = layers.RandomRotation(0.2)(x)
-    x = layers.RandomTranslation(0.1, 0.1)(x)
-    x = tf.keras.applications.resnet50.preprocess_input(x)
+    x = tf.keras.applications.resnet50.preprocess_input(inputs)
 
     resnet = tf.keras.applications.ResNet50(
         include_top=False, weights="imagenet", pooling="avg"
@@ -78,4 +72,4 @@ def predict_class(image_path):
     return labels[top_idx[0]]
 
 if __name__ == "__main__":
-    predict_image(str(PROJECT_ROOT / "sample_images" / "107682.jpg"))
+    predict_image(str(PROJECT_ROOT / "sample_images" / "113863.jpg"))

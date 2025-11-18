@@ -11,7 +11,6 @@ vocab_fp = DATA_PATH / "captions" / "vocab.json"
 captioner_weights_fp = PROJECT_ROOT / "checkpoints" / "captioner_model.h5"
 resnet_weights_fp = PROJECT_ROOT / "checkpoints" / "resnet50_weights_tf_dim_ordering_tf_kernels_notop.h5"
 
-
 def generate_caption(image_fp):
     config = json.load(open(config_fp))
     vocab = json.load(open(vocab_fp))
@@ -74,4 +73,4 @@ def generate_caption(image_fp):
 
     return caption.replace("<bos>", "").replace("<eos>", "").replace("<pad>", "").replace("a a ", "a ").strip()
 
-#print(generate_caption(PROJECT_ROOT / "sample_images" / "42.jpg"))
+print(generate_caption(PROJECT_ROOT / "data" / "labels" / "thumbs" / "113863.jpg"))
