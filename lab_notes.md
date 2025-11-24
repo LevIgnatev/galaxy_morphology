@@ -40,3 +40,6 @@ Minor improvements to the notebooks.
 
 ## 2025-11-12
 Trained the classifier and the captioner on the full datasets using cloud GPUs from runpod. Probably the hardest task to date. At least I learned some CLI commands. Saved the weights to checkpoints. Fixed the app and the scripts.
+
+## 2025-11-24
+Final repo cleanup.
