@@ -4,5 +4,4 @@ pandas
 matplotlib
 tensorflow
 streamlit
-grad-cam
 nltk
